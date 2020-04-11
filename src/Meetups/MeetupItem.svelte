@@ -1,4 +1,6 @@
 <script>
+  import Button from "../UI/Button.svelte";
+
   export let title;
   export let subtitle;
   export let imageUrl;
@@ -18,12 +20,12 @@
     <img class="absolut h-full w-full object-cover" src={imageUrl} alt="" />
   </div>
 
-  <div class="p-4 lg:h-16">
+  <div class="p-4 h-32">
     <p class="text-xl m-0 float-right">{description}</p>
   </div>
   <footer class="p-4 justify-end">
-    <a href="mailto:{contactEmail}">Contact</a>
-    <button class="text-xs py-1 rounded px-2 m-1">Show Details</button>
-    <button class="text-xs py-1 rounded px-2 m-1">Favorite</button>
+    <Button href="mailto:{contactEmail}" caption="Contact" />
+    <Button type="button" caption="Favorite" mode="outline" />
+    <Button type="button" caption="Show Details" />
   </footer>
 </article>
