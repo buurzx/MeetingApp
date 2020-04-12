@@ -53,7 +53,9 @@
 <main class="bg-gray-200">
   <Header />
   <div class="mt-16">
-    <form class="w-64 max-w-11/12 m-auto" on:submit|preventDefault={addMeetup}>
+    <form
+      class="w-4/12 max-w-11/12 m-auto"
+      on:submit|preventDefault={addMeetup}>
       <TextInput
         id="title"
         label="Title"

@@ -16,7 +16,7 @@
   {#if controlType === 'textarea'}
     <textarea
       class="block w-full bg-white px-2 py-1 border-0 border-b-2
-      transition-colors duration-2000 ease-in-out border-gray-600 rounded-sm
+      transition-colors duration-500 ease-in-out border-gray-600 rounded-sm
       focus:border-red-500 focus:outline-none"
       {rows}
       {id}
@@ -25,7 +25,7 @@
   {:else}
     <input
       class="block w-full bg-white px-2 py-1 border-0 border-b-2
-      transition-colors duration-2000 ease-in-out border-gray-600 rounded-sm
+      transition-colors duration-500 ease-in-out border-gray-600 rounded-sm
       focus:border-red-500 focus:outline-none"
       type={type ? type : 'text'}
       id="title"
