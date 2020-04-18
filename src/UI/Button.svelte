@@ -1,18 +1,16 @@
 <script>
-  export let type;
-  export let caption;
-  export let href;
-  export let mode;
+  export let type = null;
+  export let href = null;
+  export let mode = null;
+  export let color = null;
 </script>
 
-<style>
-
-</style>
-
 {#if href}
-  <a class="text-xs sm:text-base " {href}>{caption}</a>
+  <a class="text-xs sm:text-base no-underline" {href}>
+    <slot />
+  </a>
 {:else}
-  <button class="text-xs sm:text-base py-1 px-2 {mode}" {type}>
-    {caption}
+  <button class="{color} text-xs sm:text-base py-1 px-2 {mode}" {type} on:click>
+    <slot />
   </button>
 {/if}

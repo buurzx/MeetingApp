@@ -4,6 +4,8 @@
 
 @import "tailwindcss/utilities";
 
+@import url("https://fonts.googleapis.com/css?family=Lato|Roboto+Slab");
+
 h1 {
   @apply text-2xl;
 }
@@ -24,8 +26,8 @@ body {
 button,
 a {
   font: inherit;
-  border: 1px solid #cf0056;
-  background: #cf0056;
+  border: 1px solid #e53e3e;
+  background: #e53e3e;
   padding: 0.5rem 1rem;
   color: white;
   border-radius: 5px;
@@ -95,4 +97,16 @@ button:disabled:active {
 .outline.success:hover,
 .outline.success:active {
   background: #c2ffd1;
+}
+
+#modal {
+  top: 10vh;
+  left: 10%;
+}
+
+@media (min-width: 768px) {
+  #modal {
+    width: 40rem;
+    left: calc(50% - 20rem);
+  }
 }

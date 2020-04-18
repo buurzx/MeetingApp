@@ -5,12 +5,6 @@
 
 <section class="w-full grid grid-cols-1 gap-1 md:grid-cols-2 mt-2">
   {#each meetups as meetup}
-    <MeetupItem
-      title={meetup.title}
-      subtitle={meetup.subtitle}
-      description={meetup.description}
-      contactEmail={meetup.contactEmail}
-      address={meetup.address}
-      imageUrl={meetup.imageUrl} />
+    <MeetupItem {...meetup} on:togglefavorite />
   {/each}
 </section>

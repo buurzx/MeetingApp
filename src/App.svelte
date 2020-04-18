@@ -1,15 +1,8 @@
 <script>
   import Header from "./UI/Header.svelte";
-  import TextInput from "./UI/TextInput.svelte";
   import Button from "./UI/Button.svelte";
   import MeetupGrid from "./Meetups/MeetupGrid.svelte";
-
-  let title = "";
-  let subtitle = "";
-  let address = "";
-  let email = "";
-  let description = "";
-  let imageUrl = "";
+  import EditMeetup from "./Meetups/EditMeetup.svelte";
 
   let meetups = [
     {
@@ -21,7 +14,8 @@
       imageUrl:
         "https://upload.wikimedia.org/wikipedia/commons/e/e4/Caffe_Nero_Expresso_Bar%2C_Sutton%2C_Surrey%2C_Greater_London.jpg",
       address: "27th Nerd Road, 32523 London",
-      contactEmail: "code@test.com"
+      contactEmail: "code@test.com",
+      isFavorite: false
     },
     {
       id: "m2",
@@ -31,67 +25,50 @@
       imageUrl:
         "https://upload.wikimedia.org/wikipedia/commons/0/02/Aquatics_Centre_London_2012.jpg",
       address: "27th Nerd Road, 32523 London",
-      contactEmail: "swim@test.com"
+      contactEmail: "swim@test.com",
+      isFavorite: false
     }
   ];
 
-  function addMeetup() {
+  let editMode;
+
+  function addMeetup(event) {
     const newMeetUp = {
       id: Math.random().toString(),
-      title: title,
-      subtitle: subtitle,
-      address: address,
-      email: email,
-      description: description,
-      imageUrl: imageUrl
+      title: event.detail.title,
+      subtitle: event.detail.subtitle,
+      address: event.detail.address,
+      email: event.detail.email,
+      description: event.detail.description,
+      imageUrl: event.detail.imageUrl
     };
 
     meetups = [newMeetUp, ...meetups];
+    editMode = null;
+  }
+
+  function toggleFavorite(event) {
+    const id = event.detail;
+    // create new copy of array and mutate it
+    const updatedMeetup = { ...meetups.find(m => m.id === id) };
+    updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
+    const meetupIndex = meetups.findIndex(m => m.id === id);
+    // copy of existing meetups
+    const updatedMeetups = [...meetups];
+    updatedMeetups[meetupIndex] = updatedMeetup;
+    meetups = updatedMeetups;
   }
 </script>
 
 <main class="bg-gray-200">
   <Header />
   <div class="mt-16">
-    <form
-      class="w-4/12 max-w-11/12 m-auto"
-      on:submit|preventDefault={addMeetup}>
-      <TextInput
-        id="title"
-        label="Title"
-        value={title}
-        on:input={event => (title = event.target.value)} />
-      <TextInput
-        id="subtitle"
-        label="Subtitle"
-        value={subtitle}
-        on:input={event => (subtitle = event.target.value)} />
-      <TextInput
-        id="address"
-        label="Address"
-        value={address}
-        on:input={event => (address = event.target.value)} />
-      <TextInput
-        id="imageUrl"
-        label="Image URL"
-        value={imageUrl}
-        on:input={event => (imageUrl = event.target.value)} />
-      <TextInput
-        id="email"
-        label="E-mail"
-        value={email}
-        type="email"
-        on:input={event => (email = event.target.value)} />
-      <TextInput
-        id="description"
-        label="Description"
-        value={description}
-        controlType="textarea"
-        on:input={event => (description = event.target.value)} />
-
-      <Button type="submit" caption="Save" />
-
-    </form>
-    <MeetupGrid {meetups} />
+    <div class="m-4">
+      <Button on:click={() => (editMode = 'add')}>New Meetup</Button>
+    </div>
+    {#if editMode === 'add'}
+      <EditMeetup on:save={addMeetup} />
+    {/if}
+    <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
   </div>
 </main>
