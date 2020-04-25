@@ -22,14 +22,20 @@
       imageUrl: imageUrl
     });
   }
+
+  function cancel() {
+    dispatch("cancel");
+  }
 </script>
 
-<Modal title="Edit Meetup data">
+<Modal title="Edit Meetup data" on:cancel>
   <form class="w-full m-auto" on:submit|preventDefault={submitForm}>
     <TextInput
       id="title"
       label="Title"
       value={title}
+      valid={true}
+      validityMessage="Please enter a valid title"
       on:input={event => (title = event.target.value)} />
     <TextInput
       id="subtitle"
@@ -58,8 +64,10 @@
       value={description}
       controlType="textarea"
       on:input={event => (description = event.target.value)} />
-
-    <Button type="submit">Save</Button>
-
   </form>
+
+  <div slot="footer">
+    <Button type="button" mode="outline" on:click={cancel}>Cancel</Button>
+    <Button type="button" on:click={submitForm}>Save</Button>
+  </div>
 </Modal>

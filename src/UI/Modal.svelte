@@ -1,9 +1,18 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import Button from "./Button.svelte";
   export let title;
+
+  const dispatch = createEventDispatcher();
+
+  function closeModel() {
+    dispatch("cancel");
+  }
 </script>
 
-<div class="fixed top-0 right-0 w-full h-screen z-10 bg-gray-800 opacity-75" />
+<div
+  class="fixed top-0 right-0 w-full h-screen z-10 bg-gray-800 opacity-75"
+  on:click={closeModel} />
 
 <div
   class="fixed bg-white z-20 rounded-sm overflow-scroll shadow-md max-h-80s
@@ -15,7 +24,7 @@
   </div>
   <footer class="p-4">
     <slot name="footer">
-      <Button>Close</Button>
+      <Button on:click={closeModel}>Close</Button>
     </slot>
   </footer>
 </div>
