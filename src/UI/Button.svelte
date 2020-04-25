@@ -3,6 +3,7 @@
   export let href = null;
   export let mode = null;
   export let color = null;
+  export let disabled = false;
 </script>
 
 {#if href}
@@ -10,7 +11,11 @@
     <slot />
   </a>
 {:else}
-  <button class="{color} text-xs sm:text-base py-1 px-2 {mode}" {type} on:click>
+  <button
+    class="{color} text-xs sm:text-base py-1 px-2 {mode}"
+    {type}
+    {disabled}
+    on:click>
     <slot />
   </button>
 {/if}
